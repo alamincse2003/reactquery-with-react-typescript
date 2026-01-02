@@ -1,7 +1,15 @@
 import usePosts from "./hooks/usePosts";
 
-const TodoList = () => {
-  const pageSize = 20;
+interface Todo {
+  id: number;
+  title: string;
+}
+
+interface TodoListProps {
+  todos: Todo[];
+}
+const TodoList = ({ todos }: TodoListProps) => {
+  const pageSize = 10;
 
   const {
     data,
@@ -22,10 +30,11 @@ const TodoList = () => {
 
   return (
     <div>
-      <h3 className="text-center text-green-500 text-2xl mt-5 mb-5 underline">
-        Posts Data
-      </h3>
-
+      {todos.map((todo) => (
+        <div key={todo.id} className="border-2 border-blue-500 p-4 m-4">
+          <h3 className="text-lg font-semibold">{todo.title}</h3>
+        </div>
+      ))}
       {data?.pages.map((page) =>
         page.map((post) => (
           <div key={post.id} className="border-2 border-blue-500 p-4 m-4">
